@@ -1,3 +1,22 @@
+# MetaCubeXD 安卓版
+
+本仓库基于 [MetaCubeX/metacubexd](https://github.com/MetaCubeX/metacubexd)，提供可独立安装的安卓面板应用，显示名称为 **MetaCubeXD**。
+
+**[下载安卓 APK](https://github.com/xx025/metacubexd-mobile/releases/latest)** · **[安卓构建说明](./apps/android/README.md)**
+
+- 只连接路由器或服务器上已有的 Mihomo，不附带代理内核，不启动手机 VPN。
+- 支持 Android 8.0 及以上；面板和字体打包在 APK 内，使用系统 Android WebView。
+- 后端地址、Secret 和面板设置保存在独立应用存储中，清理浏览器数据不会清除这些记录。
+- 字体缩放为原来的 85%；安卓状态栏和导航栏跟随面板主题，并自动切换深浅色图标。
+
+安装后输入路由器的控制地址（例如 `http://192.168.1.1:9090`）和 Secret。手机需要能访问该地址；如果路由器限制 CORS 来源，允许 `http://localhost`。新版本可直接覆盖安装，卸载或清除本应用数据会删除保存的信息。
+
+可安装的 APK 位于本仓库的 **Releases**。手动运行 `Android APK` 工作流生成的是 **Actions 下载附件**，不会自动创建 Release；自行构建前请按安卓构建说明配置签名 Secrets。
+
+---
+
+以下保留上游项目说明，其中的电脑版下载链接指向上游仓库。
+
 <div align="center">
 
 # metacubexd
