@@ -1,10 +1,13 @@
-# MetaCubeXD Mobile（安卓面板）
+# MetaCubeXD（安卓面板）
 
 这是面向 `xx025/metacubexd-mobile` 的安卓外壳。只连接用户已有的 Mihomo
 控制端，不附带内核、不申请 VPN 权限。最低 Android 8.0，使用系统 Android
 WebView；APK 不含原生架构库，因此适用于 arm64、armv7 和 x86_64。
 
 `1.273.1-mobile.2` 将文字缩放调为原来的 85%，并保留 Android 系统字体缩放设置。
+`1.273.1-mobile.3` 让安卓状态栏跟随面板顶栏颜色、系统导航栏跟随页面背景色；
+切换主题时同步更新，并自动选择深色或浅色系统图标。
+应用显示名称为 `MetaCubeXD`，不带 Mobile 后缀；安装包标识保持不变以便覆盖升级。
 
 面板和字体打包在 APK 内。后端地址、Secret 和面板设置保存在本应用私有的
 WebView 存储中，独立于 Chrome 等浏览器。应用升级保留数据，但卸载或清除本应用
@@ -38,7 +41,7 @@ export ANDROID_HOME=/path/to/android-sdk
 bash apps/android/build-apk.sh
 ```
 
-APK 位于 `apps/android/build/MetaCubeXD-Mobile.apk`。PWA 必须在此次构建中关闭，
+APK 位于 `apps/android/build/MetaCubeXD.apk`。PWA 必须在此次构建中关闭，
 应用内页面无需 Service Worker。未改动任何上游面板功能或代理内核代码。
 
 首次本地构建自动生成个人签名密钥及随机密码，放在

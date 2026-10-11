@@ -14,6 +14,7 @@ rm -rf "$BUILD/assets/public"
 cp -R "$UI_DIR" "$BUILD/assets/public"
 cp "$REPO_DIR/packages/ui/public/pwa-192x192.png" "$BUILD/res/drawable/icon.png"
 cp "$REPO_DIR/LICENSE" "$BUILD/assets/public/LICENSE.txt"
+cp "$APP_DIR/system-bars.js" "$BUILD/assets/system-bars.js"
 javac -source 8 -target 8 -encoding UTF-8 -bootclasspath "$ANDROID_JAR" \
     -d "$BUILD/classes" "$APP_DIR/src/io/github/xx025/metacubexd/mobile/MainActivity.java"
 "$TOOLS/aapt2" compile --dir "$BUILD/res" -o "$BUILD/resources.zip"
@@ -46,6 +47,6 @@ PY
 fi
 "$TOOLS/apksigner" sign --ks "$KEYSTORE" --ks-key-alias mobile \
     --ks-pass "file:$PASSWORD_FILE" \
-    --out "$BUILD/MetaCubeXD-Mobile.apk" "$BUILD/aligned.apk"
-"$TOOLS/apksigner" verify --verbose "$BUILD/MetaCubeXD-Mobile.apk"
-echo "APK: $BUILD/MetaCubeXD-Mobile.apk"
+    --out "$BUILD/MetaCubeXD.apk" "$BUILD/aligned.apk"
+"$TOOLS/apksigner" verify --verbose "$BUILD/MetaCubeXD.apk"
+echo "APK: $BUILD/MetaCubeXD.apk"

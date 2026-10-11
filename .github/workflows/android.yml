@@ -43,6 +43,6 @@ jobs:
           bash apps/android/build-apk.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: MetaCubeXD-Mobile
-          path: apps/android/build/MetaCubeXD-Mobile.apk
+          name: MetaCubeXD-Android
+          path: apps/android/build/MetaCubeXD.apk
           if-no-files-found: error
