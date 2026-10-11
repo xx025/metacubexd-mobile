@@ -1,0 +1,48 @@
+name: Android APK
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Install Android build tools
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Build bundled dashboard
+        run: |
+          pnpm install --frozen-lockfile
+          MCXD_DISABLE_PWA=true pnpm build:ui
+      - name: Build signed APK
+        env:
+          SIGNING_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          SIGNING_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          test -n "$SIGNING_KEY" && test -n "$SIGNING_PASSWORD" || {
+            echo 'Set ANDROID_KEYSTORE_BASE64 and ANDROID_KEYSTORE_PASSWORD before running.'
+            exit 1
+          }
+          umask 077
+          printf '%s' "$SIGNING_KEY" | base64 --decode > "$RUNNER_TEMP/mobile.jks"
+          printf '%s' "$SIGNING_PASSWORD" > "$RUNNER_TEMP/mobile.password"
+          MCXD_KEYSTORE="$RUNNER_TEMP/mobile.jks" \
+          MCXD_PASSWORD_FILE="$RUNNER_TEMP/mobile.password" \
+          bash apps/android/build-apk.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MetaCubeXD-Mobile
+          path: apps/android/build/MetaCubeXD-Mobile.apk
+          if-no-files-found: error
