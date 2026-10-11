@@ -45,6 +45,8 @@ public final class MainActivity extends Activity {
         });
         root.requestApplyInsets();
         WebSettings settings = webView.getSettings();
+        // Make dashboard text more compact while retaining Android's font scale.
+        settings.setTextZoom(Math.round(settings.getTextZoom() * 0.85f));
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false);
